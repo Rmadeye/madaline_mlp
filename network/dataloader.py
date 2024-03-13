@@ -4,7 +4,7 @@ import os
 from PIL import Image
 
 class DataLoader:
-    def __init__(self, data_dir: str, width: int = 16, height: int = 16):
+    def __init__(self, data_dir: str):
         self.data_dir = data_dir
         assert os.path.exists(data_dir), f"{data_dir} does not exist"
 
@@ -16,10 +16,8 @@ class DataLoader:
             for line in f:
                 if len(line) == 0:
                     continue
-                elif line[0] == ",":
-                    data =  line.split(",")[-2]
-                else:
-                    data =  line.split(",")[0]
+                data =  line.split(",")[0]
+                print(data)
                 try:
                     png, description = data.split(":")
                 except ValueError:
@@ -32,6 +30,7 @@ class DataLoader:
         return pngdict, noise_levels 
     
     def convert_to_vector(self, pngdict: dict) -> dict:
+        print(pngdict)
         numpy_dict = {v:k for k,v in pngdict.items()}
         numpy_dict = {k: np.array(Image.open(v)) for k,v in numpy_dict.items()}
         vector_dict = {k: v.flatten() for k,v in numpy_dict.items()}
@@ -43,7 +42,6 @@ class DataLoader:
     def load_data(self):
         pngdict, noise_levels = self.read_description()
         vector_dict = self.convert_to_vector(pngdict)
-        # vectorized_dict = self.vectorize(vector_dict)
         return vector_dict, noise_levels
 
 

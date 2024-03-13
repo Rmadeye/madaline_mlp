@@ -15,7 +15,6 @@ class Network:
 
     def train(self, training_set: dict):
         data = training_set[0]
-        # noise_levels = training_set[1]
         for label, x in data.items():
             self.neurons.append(neuron.SingleNeuron(x, label))
 
@@ -36,7 +35,7 @@ class Network:
         total_accuracy = sum([True for y, y_pred in result.items() if y == y_pred[0]])/len(result)
         print(f'Total accuracy: {round(total_accuracy,3)}') 
         self.plot_cm(result,  total_accuracy)
-        # breakpoint()
+
 
     def plot_cm(self, result_dict: dict, total_accuracy: float):
 

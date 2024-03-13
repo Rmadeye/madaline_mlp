@@ -6,5 +6,4 @@ class SingleNeuron:
         self.weights = weights
 
     def forward(self, x):
-        # breakpoint()
         return x @ self.weights.T
