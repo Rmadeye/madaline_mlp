@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class SingleNeuron:
     def __init__(self, weights: np.array, labels: list):
         self.labels = labels
