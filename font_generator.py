@@ -1,7 +1,6 @@
 import argparse
 import os
 import string
-
 import numpy as np
 import PIL
 from PIL import ImageFont
@@ -27,6 +26,12 @@ class FontImageGenerator:
         self.all_letters = all_letters
         self.font_size = font_size
         self.font = ImageFont.truetype(self.font_file, size = self.font_size)
+
+        if len(self.letter) > 1:
+            print(f"Generating letters from {self.letter}")
+            self.letters = [x for x in self.letter]
+        else:
+            self.letters = None
 
         if self.overwrite:
             print("Overwriting existing files")
@@ -107,8 +112,11 @@ class FontImageGenerator:
 
         os.makedirs(self.output_dir, exist_ok=True)
 
-        if self.all_letters:
-            letters = string.ascii_uppercase + string.ascii_lowercase + string.digits
+        if self.all_letters or isinstance(self.letters, list):
+            if self.all_letters:
+                letters = string.ascii_uppercase + string.ascii_lowercase + string.digits
+            else:
+                letters = self.letters
             
             for letter in letters:
                 self.letter = letter
@@ -175,7 +183,7 @@ if __name__ == "__main__":
     parser.add_argument("--x_position", type=int, help="X position of the letter", default=0)
     parser.add_argument("--y_position", type=int, help="Y position of the letter", default=0)
     parser.add_argument("--font_file", type=str, help="Font file", default='times-ro.ttf')   
-    parser.add_argument("--letter", type=str, help="Letter to generate", required=False, default='A')
+    parser.add_argument("--letter", type=str, help="Letter or letters to generate. List in form of ABCDEFG...", required=False, default='A')
     parser.add_argument("--noise_level", type=int, help="Noise level", default=0)   
     parser.add_argument("--output_dir", type=str, help="Output directory", default='data/training_set')
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing files")
