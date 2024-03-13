@@ -1,8 +1,12 @@
-### Simple MADALINE network for identification of letters and digits based on ttf file.
+![Python Version](https://img.shields.io/badge/Python-3.12-blue) ![NumPy Version](https://img.shields.io/badge/NumPy-latest-green) ![Pillow Version](https://img.shields.io/badge/Pillow-latest-orange)
+![scikit-learn Version](https://img.shields.io/badge/scikit--learn-latest-yellowgreen)
+
+
+# Simple MADALINE network for identification of letters and digits based on ttf file.
 
 This is a simple implementation of a MADALINE network for identification of letters and digits based on a ttf file. The network is trained using the simple single-layer network. The network is implemented in Python using the numpy library for matrix operations.
 
-### Usage
+# Usage
 
 1. Create `conda`environment using `environment.yml` file:
    `conda env create -f environment.yml`
@@ -10,23 +14,31 @@ This is a simple implementation of a MADALINE network for identification of lett
    `conda activate madaline`
 3. Download the ttf file and put it in data/ directory. Exemplary [website](https://www.download-free-fonts.com/details/86847/times-roman). Sample Times Roman font is already included in the repository.
 3. Generate the training and test data using `ttf` file. Example:
-   `python3 font_generator.py --width 32 --height 32 --x_position 16 --y_position 16 --font_file data/times-ro.ttf --noise_level 0 --output_dir data/train --overwrite --all_letters`
+   ```python
+   
+    python font_generator.py --width 32 --height 32 --x_position 16 --y_position 16 --font_file data/times-ro.ttf --noise_level 0 --output_dir data/train --overwrite --all_letters```
 
-   `python3 font_generator.py --width 32 --height 32 --x_position 16 --y_position 16 --font_file data/times-ro.ttf --noise_level 30 --output_dir data/test_noise_30 --overwrite --all_digits`
+   python font_generator.py --width 32 --height 32 --x_position 16 --y_position 16 --font_file data/times-ro.ttf --noise_level 30 --output_dir data/test_noise_30 --overwrite --all_digits
+   ```
 
-   You can also use 'all_letters' or use multiletter string like ABCDEFabcdef to generate only specified letters or digits
+   You can also use `--all_letters` or use multiletter string like ABCDEFabcdef to generate only specified letters or digits
+
 4. Train and test the network:
-   `python3 madaline_ocr.py --train_path data/train/ --test_path data/test_90`
+   ```python
+   python madaline_ocr.py --train_path data/train/ --test_path data/test_90
+   ```
 5. Enjoy the results!
 
-Sample results:
+# Sample results:
 
-`python3 font_generator.py --width 128 --height 128 --x_position 0 --y_position 0 --font_size 32 --font_file data/times-ro.ttf --noise_level 50 --output_dir data/test --overwrite --letter atyukjxZCVF1678`
+```python
+python font_generator.py --width 128 --height 128 --x_position 0 --y_position 0 --font_size 32 --font_file data/times-ro.ttf --noise_level 50 --output_dir data/test --overwrite --letter atyukjxZCVF1678
 
-`python3 font_generator.py --width 128 --height 128 --x_position 0 --y_position 0 --font_size 32 --font_file data/times-ro.ttf --noise_level 0 --output_dir data/train --overwrite -
--letter atyukjxZCVF1678`
+python3 font_generator.py --width 128 --height 128 --x_position 0 --y_position 0 --font_size 32 --font_file data/times-ro.ttf --noise_level 0 --output_dir data/train --overwrite -
+-letter atyukjxZCVF1678
 
-`python3 madaline_ocr.py --train_path data/train --test_path data/test --plot_results`
+python3 madaline_ocr.py --train_path data/train --test_path data/test --plot_results
+```
 
 ![image](https://github.com/Rmadeye/madaline_mlp/assets/46814304/fd21322a-4d70-4a61-9229-2df9f8a7c067)
 
