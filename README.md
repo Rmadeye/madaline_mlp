@@ -1,6 +1,6 @@
 ### Simple MADALINE network for identification of letters and digits based on ttf file.
 
-This is a simple implementation of a MADALINE network for identification of letters and digits based on a ttf file. The network is trained using the simple single-layer networj. The network is implemented in Python using the numpy library for matrix operations.
+This is a simple implementation of a MADALINE network for identification of letters and digits based on a ttf file. The network is trained using the simple single-layer network. The network is implemented in Python using the numpy library for matrix operations.
 
 ### Usage
 
