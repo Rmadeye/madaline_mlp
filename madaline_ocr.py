@@ -26,7 +26,7 @@ class Network:
         for label, x in test_data.items():
             best_neuron = None
             confidence = 0
-            for idx, neuron in enumerate(self.neurons):
+            for idx, _ in enumerate(self.neurons):
                 current_value = self.neurons[idx].forward(x)
                 if current_value > confidence:
                     confidence = current_value
@@ -77,5 +77,6 @@ if __name__ == "__main__":
     dataset = dataloader.DataLoader(args.train_path)
     net = Network(args.plot_results)
     net.train(dataset.load_data())
+    breakpoint()
     test_set = dataloader.DataLoader(args.test_path)
     net.predict(test_set.load_data())
