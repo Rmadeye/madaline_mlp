@@ -42,13 +42,12 @@ class Network:
         if self.plot_results:
             self.plot_cm(result, total_accuracy, noise_levels=noise_levels.values())
 
-    def plot_cm(self, result_dict: dict, total_accuracy: float, noise_levels: float):
+    def plot_cm(self, result_dict: dict, total_accuracy: float):
 
         sns.set(rc={"figure.figsize": (20, 20)})
         sns.set(font_scale=2)
         y_true = [x for x in result_dict.keys()]
         y_pred = [x[0] for x in result_dict.values()]
-        fidelities = [x[1] for x in result_dict.values()]
         cm = confusion_matrix(y_true, y_pred)
         fig, ax = plt.subplots()
         sns.heatmap(cm, annot=False, ax=ax, cmap="Blues", cbar=False, fmt="g")
