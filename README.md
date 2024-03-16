@@ -49,7 +49,8 @@ The sample letters (noisy and clean) are shown below (for the same font and nois
 ![image](https://github.com/Rmadeye/madaline_mlp/assets/46814304/458482f4-0849-466f-9656-fbd39b5b4ddf) vs ![image](https://github.com/Rmadeye/madaline_mlp/assets/46814304/b18bc72b-3c13-4e23-b6c2-d142b67d8f09)    ![image](https://github.com/Rmadeye/madaline_mlp/assets/46814304/3eae65a3-fa24-444b-b630-cb0d066409af) vs ![image](https://github.com/Rmadeye/madaline_mlp/assets/46814304/40675a7b-2677-4b3a-a21d-8a05b0510bf5)
 
 
-
+# TODO
+- [ ] Add all tests
 
 
 
