@@ -40,7 +40,7 @@ class Network:
         ) / len(result)
         print(f"Total accuracy: {round(total_accuracy,3)}")
         if self.plot_results:
-            self.plot_cm(result, total_accuracy, noise_levels=noise_levels.values())
+            self.plot_cm(result, total_accuracy)
 
     def plot_cm(self, result_dict: dict, total_accuracy: float):
 
