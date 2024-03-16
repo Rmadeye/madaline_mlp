@@ -47,6 +47,8 @@ class FontImageGenerator:
             print("Overwriting existing files")
             if os.path.exists(f"{self.output_dir}/description.txt"):
                 os.unlink(f"{self.output_dir}/description.txt")
+                for file in os.listdir(self.output_dir):
+                    os.unlink(os.path.join(self.output_dir, file))
 
         assert (
             self.width > 0 and self.height > 0
@@ -88,7 +90,8 @@ class FontImageGenerator:
             label = f"letter {letter}"
         return f"{output_path}:{label}, noise_level={self.noise_level}%\n"
 
-    def add_noise(self, image: PIL.Image) -> PIL.Image:
+    @staticmethod
+    def add_noise(noise_level: int, image: PIL.Image) -> PIL.Image:
         """
         Adds random noise to the given image.
 
@@ -102,7 +105,7 @@ class FontImageGenerator:
         im_as_array = np.array(image)
         noise = np.zeros(im_as_array.shape, dtype=np.uint8)
         # fill noise_level % of the image with random noise
-        noise_level = int(self.noise_level / 100 * im_as_array.size)
+        noise_level = int(noise_level / 100 * im_as_array.size)
         for i in range(noise_level):
             x = np.random.randint(0, im_as_array.shape[0])
             y = np.random.randint(0, im_as_array.shape[1])
@@ -181,7 +184,7 @@ class FontImageGenerator:
                     )
 
                 if self.noise_level > 0:
-                    image = self.add_noise(image)
+                    image = FontImageGenerator.add_noise(self.noise_level, image)
                 output_path = os.path.join(self.output_dir, f"{self.letter}.png")
                 if (
                     f"{self.letter}.png" in os.listdir(self.output_dir)
@@ -228,10 +231,10 @@ class FontImageGenerator:
                     (self.x_position, self.y_position), self.letter, font=self.font
                 )
         if self.noise_level > 0:
-            image = self.add_noise(image, self.noise_level)
+            image = FontImageGenerator.add_noise(self.noise_level, image)
         output_path = os.path.join(self.output_dir, f"{self.letter}.png")
         if f"{self.letter}.png" in os.listdir(self.output_dir) and not self.overwrite:
-            print(f"{letter} already exists in the output directory")
+            print(f"{self.letter} already exists in the output directory")
 
         else:
             image.save(output_path)
@@ -240,7 +243,8 @@ class FontImageGenerator:
         description = self.save_description(self.letter, output_path)
         with open(f"{self.output_dir}/description.txt", "a") as f:
             f.write(description)
-        return f"{self.letter} generated successfully"
+        print(f"{self.letter} generated successfully")
+        return image
 
 
 if __name__ == "__main__":

@@ -1,6 +1,9 @@
 import os
 import sys
 
+import numpy as np
+import PIL
+
 sys.path.append("..")
 import pytest
 from font_generator import FontImageGenerator
@@ -23,7 +26,7 @@ def test_generate_font_image(output_dir):
         overwrite=True,
     )
     result = generator.generate_font_image()
-    assert result == "A generated successfully"
+    assert isinstance(result, PIL.Image.Image)
     assert os.path.isfile(os.path.join(output_dir, "A.png"))
     assert os.path.isfile(os.path.join(output_dir, "description.txt"))
 
@@ -42,10 +45,16 @@ def test_noise_levels():
         font_file=INPUTFONT,
         letter="A",
         output_dir="output",
-        noise_levels=[0, 50],
+        noise_level=50,
     )
     clean_image = generator.generate_font_image()
-    noisy_image = generator.generate_font_image()
+    noisy_image = FontImageGenerator.add_noise(image=clean_image, noise_level=50)
 
+    assert isinstance(noisy_image, PIL.Image.Image)
 
-# Add more test cases as needed
+    clean_image = np.array(clean_image)
+    noisy_image = np.array(noisy_image)
+
+    assert clean_image.shape == noisy_image.shape
+    assert clean_image.dtype == noisy_image.dtype
+    assert not np.array_equal(noisy_image, clean_image), "Arrays are equal"
