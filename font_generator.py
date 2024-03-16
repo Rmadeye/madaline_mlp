@@ -51,6 +51,12 @@ class FontImageGenerator:
         assert (
             self.width > 0 and self.height > 0
         ), "Width and height must be greater than 0"
+        assert (
+            self.width >= self.font_size
+        ), f"Width ({self.width}) must be at least as big as font size ({self.font_size})"
+        assert (
+            self.height >= self.font_size
+        ), f"Height ({self.height}) must be at least as big as font size ({self.font_size})"
         if not self.all_letters and not self.letter:
             raise ValueError("Letter must be provided")
         assert (
