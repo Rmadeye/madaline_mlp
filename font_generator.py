@@ -105,14 +105,22 @@ class FontImageGenerator:
         return Image.fromarray(np.clip(im_as_array + noise, 0, 255))
 
     def centerize_letter(self, image: Image) -> Image:
+        """
+        Centerizes the given letter image within a new image of specified width and height.
+
+        Args:
+            image (Image): The letter image to be centerized.
+
+        Returns:
+            Image: The centerized letter image.
+
+        """
         # pseudo-centerize the letter
         arr = np.array(image)
         let_matrix = np.where(arr != 255)
         let_width = let_matrix[1].max() - let_matrix[1].min()
         x_center = (self.width - let_width) // 2
         y_center = self.height // 2
-        # breakpoint()
-        # let_height = let_matrix[1].max() - let_matrix[1].min()
         new_image = Image.new("L", (self.width, self.height), color=255)
         draw = ImageDraw.Draw(new_image)
         draw.text((x_center, y_center), self.letter, font=self.font, fill=0)
@@ -121,7 +129,12 @@ class FontImageGenerator:
         return new_image
 
     def generate_font_image(self) -> str:
+        """
+        Generates font images based on the specified parameters.
 
+        Returns:
+            str: A message indicating the success of the generation process.
+        """
         os.makedirs(self.output_dir, exist_ok=True)
 
         if self.all_letters or isinstance(self.letters, list):

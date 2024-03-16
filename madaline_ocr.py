@@ -77,6 +77,5 @@ if __name__ == "__main__":
     dataset = dataloader.DataLoader(args.train_path)
     net = Network(args.plot_results)
     net.train(dataset.load_data())
-    breakpoint()
     test_set = dataloader.DataLoader(args.test_path)
     net.predict(test_set.load_data())
